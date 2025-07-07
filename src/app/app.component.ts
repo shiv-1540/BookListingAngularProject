@@ -1,18 +1,26 @@
-import { Component } from '@angular/core';
-import { BooksComponent } from "./books/books";
-import { CartComponent } from "./cart/cart";
-
-// import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { initializeApp } from 'firebase/app';
+import { AuthService } from './auth/auth.service';
+import { firebaseConfig } from './firebase.config';
 
 @Component({
-   selector: 'app-root',
-  // imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  standalone: true,
-  imports: [BooksComponent, CartComponent],
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
 })
 
-export class AppComponent {
-  protected title = 'BookBooking';
+export class AppComponent implements OnInit {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    initializeApp(firebaseConfig);
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated;
+  }
+
+  logout() {
+    this.authService.logout();
+  }
 }

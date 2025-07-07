@@ -1,7 +1,19 @@
-<!-- src/app/app.component.html -->
-<h2>{{title}}</h2>
-<p>Getting Started with Angular</p>
+<nav class="flex justify-between p-4 bg-gray-900 text-white">
+    <div>
+        <a routerLink="/" class="font-extrabold text-md sm:text-md md:text-2xl lg:text-3xl ">Book Shop</a>
+    </div>
+    <div>
+        <a class="mx-4" routerLink="/cart"> My Cart</a>
+        <ng-container *ngIf="!isAuthenticated()">
+            <a class="mx-1 bg-blue-600 p-3 rounded sm:mx-2 md:mx-3" routerLink="/login"> Login</a>
+            <a class="mx-1 bg-blue-600 p-3 rounded sm:mx-2 md:mx-3" routerLink="/register"> Register</a>
+        </ng-container>
+        <ng-container *ngIf="isAuthenticated()">
+            <button (click)="logout()" class="mx-4 bg-red-600 p-3 rounded">Logout</button>
+        </ng-container>
+    </div>
+</nav>
 
-<app-books></app-books>
-
-<app-cart></app-cart>
+<div class="p-4">
+    <router-outlet></router-outlet>
+</div>
